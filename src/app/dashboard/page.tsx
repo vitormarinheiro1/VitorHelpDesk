@@ -1,4 +1,4 @@
-import { Container } from "@/components/header/container";
+import { Container } from "@/components/container";
 
 export default function Dashboard() {
     return (
