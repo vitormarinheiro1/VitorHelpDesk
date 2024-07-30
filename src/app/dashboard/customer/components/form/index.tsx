@@ -5,8 +5,10 @@
     */}
 
 
+import { api } from "@/app/lib/api"
 import { Input } from "@/components/input"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -30,14 +32,24 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-export function NewCustomerForm() {
+export function NewCustomerForm({ userId }: { userId: string}) {
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema)
     })
 
-    function handleRegisterCustomer(data: FormData){
-        console.log(data)
+    const router = useRouter()
+
+    async function handleRegisterCustomer(data: FormData){
+        await api.post("/api/customer", {
+            name: data.name,
+            phone: data.phone,
+            email: data.email,
+            address: data.address,
+            userId: userId
+        })
+
+        router.replace("/dashboard/customer")
     }
 
     return (

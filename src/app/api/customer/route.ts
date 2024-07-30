@@ -31,8 +31,9 @@ export async function POST(request: Request) {
         })
 
         return NextResponse.json({ message: "Cliente cadastrado com sucesso!" })
+        
     } catch (err) {
-        return NextResponse.json({ error: "Falha ao criar novo cliente" }, { status: 400 })
+        return NextResponse.json({ error: `Falha ao criar novo cliente ${err}` }, { status: 400 })
     }
 
 
