@@ -1,10 +1,11 @@
+'use client'
 {/* INSTALAR BIBLIOTECAS
     1º npm i react-hook-form
     2º npm i @hookform/resolvers zod
-*/}
+    */}
 
-'use client'
 
+import { Input } from "@/components/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -35,13 +36,59 @@ export function NewCustomerForm() {
         resolver: zodResolver(schema)
     })
 
+    function handleRegisterCustomer(data: FormData){
+        console.log(data)
+    }
+
     return (
-        <form>
-            <label>Nome completo</label>
-            <input
+        <form className="flex flex-col mt-6" onSubmit={handleSubmit(handleRegisterCustomer)}>
+            <label className="mb-1 text-lg font-medium">Nome completo</label>
+            <Input
                 type="text"
-                placeholder="Digite o nome completo..."
+                name="name"
+                placeholder="João Silva..."
+                error={errors.name?.message}
+                register={register}
             />
+            <section className="flex gap-2 mt-2 my-2 flex-col sm:flex-row">
+                <div className="flex-1">
+                    <label className="mb-1 text-lg font-medium">Telefone</label>
+                    <Input
+                        type="number"
+                        name="phone"
+                        placeholder="(11) 99999-9999"
+                        error={errors.phone?.message}
+                        register={register}
+                    />
+                </div>
+
+                <div className="flex-1">
+                    <label className="mb-1 text-lg font-medium">E-mail</label>
+                    <Input
+                        type="email"
+                        name="email"
+                        placeholder="hebromhelpdesk@email.com"
+                        error={errors.email?.message}
+                        register={register}
+                    />
+                </div>
+            </section>
+
+            <label className="mb-1 text-lg font-medium">Endereço completo</label>
+            <Input
+                type="text"
+                name="address"
+                placeholder="Avenida Campos Silva, São Paulo, 24"
+                error={errors.email?.message}
+                register={register}
+            />
+
+            <button
+                type="submit"
+                className="bg-blue-500 my-4 px-2 h-11 rounded text-white font-bold"
+            >
+                Cadastrar
+            </button>
         </form>
     )
 }
