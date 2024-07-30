@@ -1,0 +1,39 @@
+import { authOptions } from "@/app/lib/auth";
+import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
+import prismaClient from "@/app/lib/prisma"
+
+export async function PATCH(request: Request){
+    const session = await getServerSession(authOptions)
+
+    if(!session || !session.user){
+        return NextResponse.json({ error: "Not Authorized"}, { status: 401 })
+    }
+
+    const { id } = await request.json()
+
+    const findTicket = await prismaClient.ticket.findFirst({
+        where: {
+            id: id as string
+        }
+    })
+
+    if(!findTicket){
+        return NextResponse.json({ error: "Failed update ticket"}, { status: 400 })
+    }
+
+    try{
+        await prismaClient.ticket.update({
+            where: {
+                id: id as string
+            },
+            data: {
+                status: "FECHADO"
+            }
+        })
+
+        return NextResponse.json({ message: "Chamado atualizado com sucesso!"})
+    }catch(err){
+        return NextResponse.json({ error: "Failed update ticket"}, { status: 400 })
+    }
+}
