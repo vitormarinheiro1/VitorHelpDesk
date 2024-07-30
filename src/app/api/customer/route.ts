@@ -13,8 +13,18 @@ export async function DELETE(request: Request) {
     const { searchParams } = new URL(request.url)
     const userId = searchParams.get("id")
 
-    if(!userId) {
-        return NextResponse.json({ error: "Failed delete customer!" }, { status: 400})
+    if (!userId) {
+        return NextResponse.json({ error: "Failed delete customer!" }, { status: 400 })
+    }
+
+    const findTickets = await prismaClient.ticket.findFirst({
+        where: {
+            customerId: userId
+        }
+    })
+
+    if (findTickets) {
+        return NextResponse.json({ error: "Failed delete customer!" }, { status: 400 })
     }
 
     try {
@@ -24,9 +34,9 @@ export async function DELETE(request: Request) {
             }
         })
         return NextResponse.json({ message: "Cliente deletado com sucesso!" })
-    }catch(err){
-       console.log(err)
-       return NextResponse.json({ error: "Failed delete customer!" }, { status: 400})
+    } catch (err) {
+        console.log(err)
+        return NextResponse.json({ error: "Failed delete customer!" }, { status: 400 })
     }
 }
 
@@ -44,7 +54,7 @@ export async function POST(request: Request) {
 
     const { name, email, phone, address, userId } = await request.json()
 
-    {/* Se tiver endereço eu mando endereço, se não envio uma string vazia */}
+    {/* Se tiver endereço eu mando endereço, se não envio uma string vazia */ }
 
     try {
         await prismaClient.customer.create({
@@ -58,7 +68,7 @@ export async function POST(request: Request) {
         })
 
         return NextResponse.json({ message: "Cliente cadastrado com sucesso!" })
-        
+
     } catch (err) {
         return NextResponse.json({ error: "Falha ao criar novo cliente" }, { status: 400 })
     }

@@ -1,8 +1,11 @@
 'use client'
 import { api } from "@/app/lib/api";
 import { CustomerProps } from "@/app/utils/customer.type";
+import { useRouter } from "next/navigation";
 
 export function CardCustomer({ customer }: { customer: CustomerProps }) {
+
+    const router = useRouter()
 
     async function handleDeleteCustomer() {
         try {
@@ -13,6 +16,7 @@ export function CardCustomer({ customer }: { customer: CustomerProps }) {
             })
 
             console.log(response.data)
+            router.refresh()
         } catch (err) {
             console.log(err)
         }
