@@ -9,6 +9,7 @@ import prismaClient from '@/app/lib/prisma'
 
 export default async function Dashboard() {
     const session = await getServerSession(authOptions)
+    
 
     if (!session || !session.user) {
         redirect("/")
