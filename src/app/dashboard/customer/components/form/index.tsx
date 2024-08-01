@@ -80,7 +80,7 @@ export function NewCustomerForm({ userId }: { userId: string }) {
                     <Input
                         type="email"
                         name="email"
-                        placeholder="hebromhelpdesk@email.com"
+                        placeholder="vitorhelpdesk@email.com"
                         error={errors.email?.message}
                         register={register}
                     />

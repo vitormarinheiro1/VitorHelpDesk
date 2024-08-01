@@ -20,7 +20,7 @@ export function Header() {
             <div className="w-full flex items-center justify-between">
                 <Link href="/">
                     <h1 className="font-bold text-xl pl-1 hover:tracking-widest duration-300">
-                        <span className="text-blue-800">Hebrom</span> HelpDesk
+                        <span className="text-blue-800">Vitor</span> HelpDesk
                     </h1>
                 </Link>
 

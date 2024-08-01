@@ -8,8 +8,8 @@ import { ModalProvider } from "@/providers/modal";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Hebrom HelpDesk",
-  description: "Sistema de chamados da Hebrom Benefícios",
+  title: "Vitor HelpDesk",
+  description: "Sistema de chamados",
 };
 
 export default function RootLayout({
