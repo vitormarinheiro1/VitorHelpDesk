@@ -22,7 +22,7 @@
 - NextAuth
 - Prisma
 - MongoDB
-- React Hooks Forms
+- React Hook Form
 - Zod
 - Axios
 - TypeScript
